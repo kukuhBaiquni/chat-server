@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "kukuhbaiquni",
+    "password": "annihilation1",
+    "database": "chat_db",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "kukuhbaiquni",
+    "password": "annihilation1",
+    "database": "chat_db",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "kukuhbaiquni",
+    "password": "annihilation1",
+    "database": "chat_db",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
