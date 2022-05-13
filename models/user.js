@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       image: DataTypes.STRING,
       token: DataTypes.STRING,
+      otp_code: DataTypes.STRING,
+      verification_code: DataTypes.STRING,
+      is_verified: DataTypes.BOOLEAN,
     },
     {
       sequelize,
