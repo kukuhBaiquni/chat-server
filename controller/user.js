@@ -4,19 +4,23 @@ const { User } = require('../models')
 
 module.exports = {
   async createUser(req, res) {
-    await User.sync({ force: true })
     const { name, email, password } = req.body
     try {
       const hashedPassword = await bcrypt.hash(password, 10)
+      const random = Math.floor(Math.random() * 70) + 1
+      const id = nanoid()
       if (hashedPassword) {
-        const generated = await User.create({
-          id: nanoid(), name, email, password: hashedPassword,
+        await User.create({
+          id,
+          name,
+          email,
+          image: `https://i.pravatar.cc/100?img=${random}`,
+          password: hashedPassword,
         })
 
         res.status(201).json({
           success: true,
           message: 'Data successfully created',
-          data: generated,
         })
       } else {
         res.status(500).json({
@@ -26,7 +30,6 @@ module.exports = {
         })
       }
     } catch (error) {
-      console.log(error)
       res.status(500).send(error)
     }
   },
@@ -39,5 +42,15 @@ module.exports = {
         data,
       })
     }
+  },
+  async deleteAllUser(_, res) {
+    await User.destroy({
+      where: {},
+      truncate: true,
+    })
+    res.status(200).json({
+      success: true,
+      message: 'All data successfully deleted',
+    })
   },
 }
