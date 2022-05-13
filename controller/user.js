@@ -11,7 +11,7 @@ module.exports = {
       const random = Math.floor(Math.random() * 70) + 1
       const id = nanoid()
       if (hashedPassword) {
-        const user = await Users.find({
+        const user = await Users.findOne({
           where: {
             email,
           },
@@ -69,7 +69,7 @@ module.exports = {
   async loginUser(req, res) {
     const { email, password } = req.body
     try {
-      const user = Users.find({
+      const user = Users.findOne({
         where: {
           email,
         },
