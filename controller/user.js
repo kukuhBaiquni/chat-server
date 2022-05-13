@@ -83,6 +83,7 @@ module.exports = {
           res.status(200).json({
             success: true,
             message: 'Authentication success: Access granted',
+            token,
           })
         } else {
           res.status(401).json({
