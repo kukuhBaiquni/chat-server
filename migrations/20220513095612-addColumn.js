@@ -7,26 +7,26 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     Promise.all([
-      await queryInterface.changeColumn('User', 'id', {
+      await queryInterface.changeColumn('Users', 'id', {
         type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
       }),
-      await queryInterface.addColumn('User', 'image', {
+      await queryInterface.addColumn('Users', 'image', {
         type: Sequelize.STRING,
         allowNull: false,
       }),
-      await queryInterface.changeColumn('Conversation', 'id', {
-        type: Sequelize.STRING,
-        allowNull: false,
-        primaryKey: true,
-      }),
-      await queryInterface.changeColumn('Chat', 'id', {
+      await queryInterface.changeColumn('Conversations', 'id', {
         type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
       }),
-      await queryInterface.changeColumn('Otp', 'id', {
+      await queryInterface.changeColumn('Chats', 'id', {
+        type: Sequelize.STRING,
+        allowNull: false,
+        primaryKey: true,
+      }),
+      await queryInterface.changeColumn('Otps', 'id', {
         type: Sequelize.STRING,
         allowNull: false,
         primaryKey: true,
