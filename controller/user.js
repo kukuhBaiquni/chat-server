@@ -30,6 +30,7 @@ module.exports = {
         })
       }
     } catch (error) {
+      console.log('ERROR', error)
       res.status(500).send(error)
     }
   },
