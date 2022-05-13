@@ -12,10 +12,6 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
       }),
-      await queryInterface.addColumn('Users', 'image', {
-        type: Sequelize.STRING,
-        allowNull: false,
-      }),
       await queryInterface.changeColumn('Conversations', 'id', {
         type: Sequelize.STRING,
         allowNull: false,
