@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const { nanoid } = require('nanoid')
 const { User } = require('../models')
 
+console.log(User)
 module.exports = {
   async createUser(req, res) {
     const { name, email, password } = req.body

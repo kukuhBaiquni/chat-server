@@ -6,8 +6,6 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    const tables = await queryInterface.showAllTables()
-    console.log(tables)
     Promise.all([
       await queryInterface.changeColumn('User', 'id', {
         type: Sequelize.STRING,
