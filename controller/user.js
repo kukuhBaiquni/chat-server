@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt')
 const { nanoid } = require('nanoid')
-const { User } = require('../models')
+const { Users } = require('../models')
 
-console.log(User)
+console.log(require('../models'))
+
 module.exports = {
   async createUser(req, res) {
     const { name, email, password } = req.body
@@ -11,7 +12,7 @@ module.exports = {
       const random = Math.floor(Math.random() * 70) + 1
       const id = nanoid()
       if (hashedPassword) {
-        await User.create({
+        await Users.create({
           id,
           name,
           email,
@@ -36,7 +37,7 @@ module.exports = {
     }
   },
   async getUser(_, res) {
-    const data = await User.findAll()
+    const data = await Users.findAll()
     if (data) {
       res.status(200).json({
         success: true,
@@ -46,7 +47,7 @@ module.exports = {
     }
   },
   async deleteAllUser(_, res) {
-    await User.destroy({
+    await Users.destroy({
       where: {},
       truncate: true,
     })

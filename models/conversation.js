@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Conversation.hasOne(models.Chat, {
+      Conversation.hasOne(models.Chats, {
         foreignKey: 'conversation_id',
         as: 'chat',
       })
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     user_group: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'Conversation',
+    modelName: 'Conversations',
     freezeTableName: true,
   })
   return Conversation

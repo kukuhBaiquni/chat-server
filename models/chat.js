@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Chat.belongsTo(models.Conversation, {
+      Chat.belongsTo(models.Conversations, {
         foreignKey: 'conversation_id',
         as: 'conversation',
       })
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Chat',
+      modelName: 'Chats',
       freezeTableName: true,
     },
   )

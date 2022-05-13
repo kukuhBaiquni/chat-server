@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Otp.belongsTo(models.User, {
+      Otp.belongsTo(models.Users, {
         foreignKey: 'user_id',
         as: 'user',
       })
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'Otp',
+    modelName: 'Otps',
     freezeTableName: true,
   })
   return Otp

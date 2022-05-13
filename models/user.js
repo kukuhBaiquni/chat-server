@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(models.Otp, {
+      User.hasOne(models.Otps, {
         foreignKey: 'user_id',
         as: 'otp',
       })
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'User',
+      modelName: 'Users',
       freezeTableName: true,
     },
   )
