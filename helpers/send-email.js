@@ -13,6 +13,8 @@ const sendEmail = async (payload) => {
     },
     service: 'gmail',
     host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
   })
   const mailOptions = {
     from: process.env.EMAIL_EMITER,
