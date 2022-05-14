@@ -41,12 +41,12 @@ module.exports = {
           sendEmail({
             email,
             name,
-            url: `${CLIENT_URL}/auth/account-verification?token=${generatedID}`,
+            url: `${CLIENT_URL}/verify?token=${generatedID}`,
           })
 
           res.status(201).json({
             success: true,
-            message: 'Registration success: User created',
+            message: 'Registration success: Please verify your email',
           })
         }
       } else {
@@ -137,7 +137,8 @@ module.exports = {
         await user.save()
         res.status(200).json({
           success: true,
-          message: 'Verify email success',
+          message:
+            'Your email successfully verified, please login to start chat',
         })
       } else {
         res.status(400).json({
