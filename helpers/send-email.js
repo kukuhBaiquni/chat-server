@@ -12,6 +12,7 @@ const sendEmail = async (payload) => {
       user: process.env.EMAIL_EMITER,
     },
     service: 'gmail',
+    host: 'smtp.gmail.com',
   })
   const mailOptions = {
     from: process.env.EMAIL_EMITER,
