@@ -2,15 +2,66 @@
 const http = require('http')
 const io = require('socket.io')
 const app = require('./app')
+const EVENT = require('./rtc/event-constant')
+const onDisconnected = require('./rtc/disconnected')
+const onConnected = require('./rtc/connected')
+const createChat = require('./rtc/create-chat')
 
 const server = http.createServer(app)
-const websocket = io(server)
+const websocket = io(server, {
+  cors: {
+    origin: '*',
+  },
+})
 
-websocket.on('connection', (socket) => {
-  console.log.og('USER', socket)
+websocket.on('connect', (socket) => {
+  socket.on('disconnect', async () => {
+    try {
+      const token = socket.handshake?.headers?.token
+      const data = await onDisconnected({ token })
+      websocket.emit(EVENT.USER_DISCONNECTED, {
+        id: data.id,
+        last_seen: data.last_seen,
+      })
+    } catch {
+      websocket.emit(EVENT.USER_DISCONNECTED)
+    }
+  })
 
-  socket.on('disconnect', () => {
-    console.log('USER DC')
+  socket.on(EVENT.USER_CONNECTED, async () => {
+    try {
+      const token = socket.handshake?.headers?.token
+      const data = await onConnected({ token, socketId: socket.id })
+      websocket.emit(EVENT.USER_CONNECTED, {
+        id: data.id,
+        last_seen: data.last_seen,
+      })
+    } catch {
+      websocket.emit(EVENT.USER_CONNECTED)
+    }
+  })
+
+  socket.on(EVENT.USER_DISCONNECTED, async () => {
+    try {
+      const token = socket.handshake?.headers?.token
+      const data = await onDisconnected({ token })
+      websocket.emit(EVENT.USER_DISCONNECTED, {
+        id: data.id,
+        last_seen: data.last_seen,
+      })
+    } catch {
+      websocket.emit(EVENT.USER_DISCONNECTED)
+    }
+  })
+
+  socket.on(EVENT.CHAT_FROM_CLIENT, async (data) => {
+    console.log('CHAT FROM CLIENT', data)
+    try {
+      const chat = await createChat(data)
+      websocket.emit(EVENT.CHAT_FROM_SERVER, chat)
+    } catch {
+      websocket.emit(EVENT.CHAT_FROM_SERVER)
+    }
   })
 })
 

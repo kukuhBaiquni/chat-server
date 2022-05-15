@@ -25,6 +25,8 @@ module.exports = (sequelize, DataTypes) => {
       otp_code: DataTypes.STRING,
       verification_code: DataTypes.STRING,
       is_verified: DataTypes.BOOLEAN,
+      last_seen: DataTypes.DATE,
+      socket_id: DataTypes.STRING,
     },
     {
       sequelize,

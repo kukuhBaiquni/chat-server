@@ -7,17 +7,13 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     Promise.all([
-      await queryInterface.addColumn('Users', 'otp_code', {
+      await queryInterface.addColumn('Users', 'socket_id', {
         type: Sequelize.STRING,
         allowNull: true,
       }),
-      await queryInterface.addColumn('Users', 'verification_code', {
-        type: Sequelize.STRING,
+      await queryInterface.addColumn('Users', 'last_seen', {
+        type: Sequelize.DATE,
         allowNull: true,
-      }),
-      await queryInterface.addColumn('Users', 'is_verified', {
-        type: Sequelize.BOOLEAN,
-        default: false,
       }),
     ])
   },
