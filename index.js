@@ -32,10 +32,8 @@ websocket.on('connect', (socket) => {
     try {
       const token = socket.handshake?.headers?.token
       const data = await onConnected({ token, socketId: socket.id })
-      websocket.emit(EVENT.USER_CONNECTED, {
-        id: data.id,
-        last_seen: data.last_seen,
-      })
+      console.log(data)
+      websocket.emit(EVENT.USER_CONNECTED, data)
     } catch {
       websocket.emit(EVENT.USER_CONNECTED)
     }

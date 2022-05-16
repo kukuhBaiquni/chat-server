@@ -5,10 +5,11 @@ const { Op } = Sequelize
 
 module.exports = {
   async getChats(req, res) {
-    const { senderId = '', recipientId = '', page = 1 } = req.query
+    const { senderId = '', recipientId = '', offset } = req.query
     try {
-      const perPage = 15
-      const data = await Chats.findAll({
+      const perPage = 25
+      const dataInClient = +offset === 0 ? 0 : Math.max(offset, perPage)
+      const count = await Chats.count({
         where: {
           [Op.and]: [
             {
@@ -23,13 +24,27 @@ module.exports = {
             },
           ],
         },
+      })
+      const data = await Chats.findAll({
+        where: {
+          [Op.or]: [
+            {
+              conversation_id: `${senderId} | ${recipientId}`,
+            },
+            {
+              conversation_id: `${recipientId} | ${senderId}`,
+            },
+          ],
+        },
+        order: [['createdAt', 'DESC']],
         limit: perPage,
-        offset: perPage * (page - 1),
+        offset: dataInClient,
       })
       res.status(200).json({
         success: true,
         message: 'Data succesfully retrieved',
         data,
+        totalData: count,
       })
     } catch (error) {
       res.status(500).send(error)
@@ -42,6 +57,20 @@ module.exports = {
         success: true,
         message: 'Data successfully retrieved',
         data: chat,
+      })
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  },
+  async dropChat(_, res) {
+    try {
+      await Chats.destroy({
+        where: {},
+        truncate: true,
+      })
+      res.status(200).json({
+        success: true,
+        message: 'All data successfully deleted',
       })
     } catch (error) {
       res.status(500).send(error)

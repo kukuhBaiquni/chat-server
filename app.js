@@ -18,6 +18,5 @@ app.use(express.urlencoded({ extended: false }))
 app.get('/', (_, res) => res.send('SERVER STATUS: UP'))
 app.use('/api/v1/user', require('./routes/user'))
 app.use('/api/v1/chat', require('./routes/chat'))
-app.use('/api/v1/conversation', require('./routes/conversation'))
 
 module.exports = app

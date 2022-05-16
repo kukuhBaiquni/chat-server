@@ -75,7 +75,6 @@ module.exports = {
         })
       }
     } catch (error) {
-      console.log(error)
       res.status(500).send(error)
     }
   },
@@ -169,10 +168,21 @@ module.exports = {
     }
   },
   async getUserOne(req, res) {
-    const { id } = req.query
+    const { id = '', name } = req.query
     try {
       const user = await Users.findOne({
-        where: { id },
+        where: {
+          [Op.or]: [
+            {
+              id,
+            },
+            {
+              name: {
+                [Op.iLike]: `%${name}%`,
+              },
+            },
+          ],
+        },
       })
       if (user) {
         res.status(200).json({
@@ -194,6 +204,7 @@ module.exports = {
         })
       }
     } catch (error) {
+      console.log(error)
       res.status(500).send(error)
     }
   },
@@ -217,6 +228,7 @@ module.exports = {
         },
         limit: perPage,
         offset: perPage * (page - 1),
+        order: [['last_seen', 'DESC']],
       })
       res.status(200).json({
         success: true,
